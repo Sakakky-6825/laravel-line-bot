@@ -13,7 +13,7 @@ class GoogleUtil
   /**
    * Google Calendar IDを取得
    */
-  private static function getGoogleCalendarID()
+  public static function getGoogleCalendarID()
   {
     $google_calendar_id = env('GOOGLE_CALENDAR_ID');
     return $google_calendar_id;
@@ -22,7 +22,7 @@ class GoogleUtil
   /**
    * GoogleClientを取得
    */
-  private static function getGoogleClient()
+  public static function getGoogleClient()
   {
     $client = new Google_Client();
 
@@ -39,36 +39,16 @@ class GoogleUtil
   }
 
   /**
-   * Google Calendarへ予定を登録
-   */
-  public static function saveGoogleCalendarSchedule()
-  {
-    $client = self::getGoogleClient();
-
-    $service = new Google_Service_Calendar($client);
-
-    // GoogleCalendarID取得
-    $calendar_id = self::getGoogleCalendarID();
-
-    // Calendar Eventの取得
-    $event = self::createGoogleCalendarEvent(array());
-
-    $service->events->insert($calendar_id, $event);
-    Log::info('カレンダー登録しました。');
-  }
-
-  /**
    * Google Calendar Eventの生成
    */
-  private static function createGoogleCalendarEvent($params)
+  public static function createGoogleCalendarEvent($params)
   {
     // 日付
-    // $date = new Carbon($params['event_date']);
-    $date = new Carbon('now');
+    $date = new Carbon($params['event_date']);
 
     // Event生成
     $event = new Google_Service_Calendar_Event(array(
-      'summary' =>  'テスト作成イベント',
+      'summary' =>  $params['event_title'] ?: "${date}の予定",
       'start'   =>  array(
         // 開始時刻
         'dateTime'  =>  $date,

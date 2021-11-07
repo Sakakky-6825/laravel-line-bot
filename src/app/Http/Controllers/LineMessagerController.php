@@ -18,11 +18,18 @@ class LineMessagerController extends Controller
     public function sendMessage(LINEService $line_service, GoogleService $google_service, Request $request)
     {
         Log::info('_____処理開始_____');
-        // LINE Message Send
-        $line_service->sendMessage($request);
+        Log::info('Requestの中身');
+        Log::info($request);
+        // LINE Message 解析
+        $receive_message = $line_service->analysisLINEMessage($request);
 
         // Google Calendar Regist
-        $google_service->saveGoogleCalendarSchedule($request);
+        $response = $google_service->saveGoogleCalendarSchedule($receive_message);
+
+        if ($response->getStatus() === 'confirmed') {
+            // LINE Message Send
+            $line_service->sendMessage($request, $receive_message);
+        }
         Log::info('_____処理終了_____');
     }
 }
