@@ -7,19 +7,19 @@ use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\SignatureValidator;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 
-class Util
+class LINEUtil
 {
   // channelSecretを取得
   public static function getChannelSecret()
   {
-    $channelSecret = env("LINE_CHANNEL_SECRET");
+    $channelSecret = env('LINE_CHANNEL_SECRET');
     return $channelSecret;
   }
 
   // channelAccessTokenを取得
   public static function getChannelAccessToken()
   {
-    $channelAccessToken = env("LINE_CHANNEL_ACCESS_TOKEN");
+    $channelAccessToken = env('LINE_CHANNEL_ACCESS_TOKEN');
     return $channelAccessToken;
   }
 

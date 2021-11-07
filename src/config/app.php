@@ -225,7 +225,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Util' => App\Common\LINE\Util::class,
+        'LINEUtil' => App\Common\LINE\LINEUtil::class,
+        'GoogleUtil' => App\Common\Google\GoogleUtil::class,
 
     ],
 

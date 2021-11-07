@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 // LINE
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
-use Util;
+use LINEUtil;
 // logs
 use Illuminate\Support\Facades\Log;
 
@@ -14,7 +14,7 @@ class LINEService
   public function sendMessage(Request $request)
   {
     // webhookの処理
-    $events = Util::getEventsByWebhook($request);
+    $events = LINEUtil::getEventsByWebhook($request);
     // log
     Log::info($events);
 
@@ -22,10 +22,10 @@ class LINEService
       // eventがmessageの時
       if ($event instanceof TextMessage) {
         // $bot 準備
-        $bot = Util::prepareToSendMessage();
+        $bot = LINEUtil::prepareToSendMessage();
 
         // relpy_token
-        $reply_token = Util::getReplyToken($event);
+        $reply_token = LINEUtil::getReplyToken($event);
 
         $message = "Hello World!";
         $response = $bot->replyText($reply_token, $message);
